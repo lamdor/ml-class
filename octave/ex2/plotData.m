@@ -13,10 +13,11 @@ figure; hold on;
 %
 
 
+y_negative = find(y==0);
+y_positive = find(y==1);
 
-
-
-
+plot(X(y_negative, 1), X(y_negative, 2), 'ko', 'MarkerFaceColor', 'y', 'MarkerSize', 7)
+plot(X(y_positive, 1), X(y_positive, 2), 'k+', 'LineWidth', 2, 'MarkerSize', 7)
 
 
 

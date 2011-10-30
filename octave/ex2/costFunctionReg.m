@@ -17,10 +17,18 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+n = length(theta); % number of features
 
+eyeWithoutTheta0 = eye(n);
+eyeWithoutTheta0(1,1) = 0;
 
+predictions = sigmoid(X * theta);
 
-
+J = (-1 / m) * ( y' * log(predictions) +
+                (1 - y)' * log(1 - predictions)) + (lambda / (2 * m)) * sum(theta(2:n) .^ 2);
+    
+grad = (1 / m) * (X' * (predictions - y) +
+                  lambda * (eyeWithoutTheta0 * theta));
 
 % =============================================================
 

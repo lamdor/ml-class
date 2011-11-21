@@ -14,6 +14,9 @@ function [error_train, error_val] = ...
 %   datasets, you might want to do this in larger intervals.
 %
 
+% X = [ones(m, 1) X]
+% Xval = [ones(size(Xval, 1), 1) Xval]
+
 % Number of training examples
 m = size(X, 1);
 
@@ -55,10 +58,16 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+m_cv = size(Xval, 1);
 
-
-
-
+for i = 1:m
+  m_train = i;
+  X_train = X(1:i, :);
+  y_train = y(1:i);
+  theta = trainLinearReg(X_train, y_train, lambda);
+  error_train(i) = (1 / (2 * m_train)) * sum((X_train * theta - y_train) .^ 2);
+  error_val(i) = (1 / (2 * m_cv)) * sum((Xval * theta - yval) .^ 2);
+end
 
 
 % -------------------------------------------------------------
